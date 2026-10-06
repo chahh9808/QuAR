@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # Download the quantized checkpoints listed in artifacts/MANIFEST.tsv and verify their SHA-256.
-#   ARTIFACT_BASE_URL=https://<host>/<path> bash tools/fetch_artifacts.sh [--only REGEX]
+#   bash tools/fetch_artifacts.sh [--only REGEX]
+# Downloads from https://huggingface.co/chahh9808/QuAR-checkpoints/resolve/main
+# by default; set ARTIFACT_BASE_URL to pull from somewhere else.
 # Files are placed at the manifest path (checkpoints/...). Rows whose source starts with EXTERNAL
 # are not hosted by us: the script prints where to get them (AdaLog release, Hugging Face) instead.
 # Existing files with a matching checksum are skipped, so the script is resumable.
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"
 ONLY=".*"; [ "${1:-}" = "--only" ] && ONLY="$2"
-BASE="${ARTIFACT_BASE_URL:-}"
+BASE="${ARTIFACT_BASE_URL:-https://huggingface.co/chahh9808/QuAR-checkpoints/resolve/main}"
 ok=0; skipped=0; ext=0; failed=0
 while IFS=$'\t' read -r path bytes sha kind src used; do
   [ "$path" = "path" ] && continue; [[ "$path" =~ $ONLY ]] || continue

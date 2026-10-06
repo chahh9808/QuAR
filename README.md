@@ -93,8 +93,17 @@ launchers expect, with SHA-256 and the builder that produces each:
 | CIFAR / DomainNet PTQ4ViT and AdaLog models | `scripts/run_bench_queue.sh` phase 0, `tools/stats/build_adalog_ckpt.py` |
 | ResNet-50 (GroupNorm and BatchNorm, MQBench W6A6) | `tools/stats/build_resnet_mqbench.py` |
 
-`tools/fetch_artifacts.sh` verifies a `checkpoints/` directory against the manifest, or downloads it
-when `ARTIFACT_BASE_URL` is set.
+`tools/fetch_artifacts.sh` checks `checkpoints/` against the manifest and downloads what is missing
+from [chahh9808/QuAR-checkpoints](https://huggingface.co/chahh9808/QuAR-checkpoints):
+
+```bash
+bash tools/fetch_artifacts.sh            # all of them
+bash tools/fetch_artifacts.sh --only w6a6  # one bit-width
+```
+
+Every file is checked against its SHA-256 before it is kept. The AdaLog checkpoints and the two
+CIFAR ViTs are not redistributed here; the script prints where to get them. Set
+`ARTIFACT_BASE_URL` to download from somewhere else.
 
 ## Layout
 
