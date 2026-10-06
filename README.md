@@ -94,7 +94,7 @@ launchers expect, with SHA-256 and the builder that produces each:
 | ResNet-50 (GroupNorm and BatchNorm, MQBench W6A6) | `tools/stats/build_resnet_mqbench.py` |
 
 `tools/fetch_artifacts.sh` checks `checkpoints/` against the manifest and downloads what is missing
-from [chahh9808/QuAR-checkpoints](https://huggingface.co/chahh9808/QuAR-checkpoints):
+from [Hyeongheon/QuAR-checkpoints](https://huggingface.co/Hyeongheon/QuAR-checkpoints):
 
 ```bash
 bash tools/fetch_artifacts.sh            # all of them
