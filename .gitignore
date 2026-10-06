@@ -181,3 +181,6 @@ external_repos/
 
 # Provenance sidecars written next to .pt files at run time.
 *.pt.meta.json
+# figures the README displays
+!figures/fig_teaser.png
+!figures/fig_overview.png

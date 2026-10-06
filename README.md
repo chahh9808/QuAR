@@ -8,6 +8,8 @@ Recalibration**, by Hyeongheon Cha, Young D. Kwon and Sung-Ju Lee.
 
 ## Method
 
+![QuAR](figures/fig_overview.png)
+
 Under distribution shift the activations entering a frozen quantizer drift, so the quantizer
 sees a different code distribution than it was calibrated for. QuAR corrects the tensor the
 quantizer reads, mapping the running per-channel statistics of the test stream back toward the
@@ -23,6 +25,12 @@ stream, `λ = 0.5`. A local branch applies this at the quantizer inputs of block
 
 ## Results
 
+![Accuracy by precision, and the code distribution QuAR restores](figures/fig_teaser.png)
+
+Quantization costs more than precision alone: unadapted ViT-B falls from 55.6 to 28.4 top-1 as it
+goes from full precision to W3A3, and QuAR's gain grows as precision drops. It is the only method
+here that moves the quantizer's code distribution back toward the source.
+
 ImageNet-C (severity 5, 15 corruptions), quantized ViT-B/16, mean top-1 over 3 seeds. W4A8 is the
 asymmetric deployment format (4-bit weights, 8-bit activations).
 
@@ -35,6 +43,21 @@ asymmetric deployment format (4-bit weights, 8-bit activations).
 | NEO | 31.91 | 50.29 | 51.35 | 58.01 | 58.09 | 1 | 0 |
 | FOZO | 31.98 | 50.09 | 49.78 | 57.88 | 57.74 | 2 | 2.3K |
 | **QuAR** | **35.98** | **53.58** | **54.35** | **60.11** | **60.44** | **1** | **0** |
+
+One fixed configuration carries the rest, with no per-dataset or per-backbone tuning:
+
+- **Continual.** Over 10 rounds x 15 corruptions with state carried throughout, best in every
+  round at both bit-widths and essentially flat, 35.6-35.8 at W3A3 and 53.9-54.0 at W6A6.
+- **Non-i.i.d. label shift.** Most accurate at every imbalance ratio from 1 to 5e5, leading by
+  1.7-2.7 points, and stable across the sweep (54.55 to 54.73).
+- **Other shifts.** Strongest at every bit-width on ImageNet-C-bar, ImageNet-Sketch, ImageNet-3DCC
+  and DomainNet-126, within 0.7 points of the best on ImageNet-R, and ahead on CIFAR-10/100-C by
+  0.8 to 3.7 points.
+- **Other backbones.** At W6A6, +6.6, +6.0 and +6.2 over No Adapt on ViT-B, DeiT-B and ViT-S, with
+  seed std no worse than 0.06; on a convolutional ResNet-50, 31.40 against NEO's 30.79 and No
+  Adapt's 30.12.
+- **Cost.** One forward pass, no parameter writes, 170 KB of state, and at least 46% less latency
+  than the two-forward FOA, FOZO and ZOA.
 
 ## Running it
 
