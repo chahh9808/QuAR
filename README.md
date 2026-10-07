@@ -3,8 +3,13 @@
 Single-pass test-time adaptation for quantized vision transformers: no backpropagation, no
 parameter updates, one forward pass.
 
+[![arXiv](https://img.shields.io/badge/arXiv-2610.08358-b31b1b.svg)](https://arxiv.org/abs/2610.08358)
+[![Checkpoints](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-checkpoints-yellow)](https://huggingface.co/Hyeongheon/QuAR-checkpoints)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 Code for **Test-Time Adaptation of Quantized ViTs via Single-Pass Quantizer-Aligned
-Recalibration**, by Hyeongheon Cha, Young D. Kwon and Sung-Ju Lee.
+Recalibration** ([arXiv:2610.08358](https://arxiv.org/abs/2610.08358)), by Hyeongheon Cha,
+Young D. Kwon and Sung-Ju Lee.
 
 ## Method
 
@@ -162,9 +167,13 @@ Also uses PTQ4ViT, MQBench and RobustBench.
 
 ```bibtex
 @article{cha2026quar,
-  title   = {Test-Time Adaptation of Quantized {ViTs} via Single-Pass Quantizer-Aligned Recalibration},
-  author  = {Cha, Hyeongheon and Kwon, Young D. and Lee, Sung-Ju},
-  journal = {arXiv preprint},
-  year    = {2026}
+  title         = {Test-Time Adaptation of Quantized {ViTs} via Single-Pass Quantizer-Aligned Recalibration},
+  author        = {Cha, Hyeongheon and Kwon, Young D. and Lee, Sung-Ju},
+  journal       = {arXiv preprint arXiv:2610.08358},
+  year          = {2026},
+  eprint        = {2610.08358},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2610.08358}
 }
 ```
